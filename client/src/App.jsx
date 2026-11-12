@@ -13,6 +13,7 @@ function App() {
   const emptyForm = { name: "", type: "Criatura", attack: "" };
   const [form, setForm] = useState(emptyForm);
   const [formError, setFormError] = useState(null);
+  const [sending, setSending] = useState(false);
 
   function handleFormChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -27,6 +28,7 @@ function App() {
       defense: 0,
     };
 
+    setSending(true);
     fetch("http://localhost:3000/api/cartas", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -44,6 +46,9 @@ function App() {
         setFormError(null);
         setCards([...cards, card]);
         setForm(emptyForm);
+      })
+      .finally(() => {
+        setSending(false);
       });
   }
 
@@ -81,6 +86,15 @@ function App() {
     if (cards.length > 0) {
       setRandomCard(cards[Math.floor(Math.random() * cards.length)]);
     }
+  }
+
+  function handleDelete(id) {
+    fetch(`http://localhost:3000/api/cartas/${id}`, { method: "DELETE" })
+      .then((res) => {
+        if (res.ok) {
+          setCards(cards.filter((c) => c.id !== id));
+        }
+      });
   }
 
   return (
@@ -136,7 +150,9 @@ function App() {
               placeholder="Ataque"
               required
             />
-            <button type="submit">Adicionar</button>
+            <button type="submit" disabled={sending}>
+              {sending ? "A enviar…" : "Adicionar"}
+            </button>
           </form>
 
           {formError && <p style={{ color: "red" }}>{formError}</p>}
@@ -146,7 +162,7 @@ function App() {
           ) : (
             <ul>
               {visible.map((card) => (
-                <Card key={card.name} {...card} />
+                <Card key={card.id} {...card} onDelete={handleDelete} />
               ))}
             </ul>
           )}

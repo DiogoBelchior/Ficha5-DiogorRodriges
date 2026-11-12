@@ -108,9 +108,23 @@ app.post("/api/cartas", (req, res) => {
     return res.status(400).json({ error: "Nome e tipo são obrigatórios" });
   }
 
+  card.id = Date.now();
   cards.push(card);
   fs.writeFileSync(CARTAS_FILE, JSON.stringify(cards, null, 2));
   res.status(201).json(card);
+});
+
+app.delete("/api/cartas/:id", (req, res) => {
+  const id = Number(req.params.id);
+  const index = cards.findIndex((c) => c.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: "Carta não encontrada" });
+  }
+
+  cards.splice(index, 1);
+  fs.writeFileSync(CARTAS_FILE, JSON.stringify(cards, null, 2));
+  res.status(204).end();
 });
 
 

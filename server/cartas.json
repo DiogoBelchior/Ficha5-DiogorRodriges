@@ -1,38 +1,7 @@
 [
-  {
-    "name": "Dragão de Cobalto",
-    "type": "Criatura",
-    "attack": 7,
-    "defense": 5
-  },
-  {
-    "name": "Guardiã das Marés",
-    "type": "Criatura",
-    "attack": 4,
-    "defense": 8
-  },
-  {
-    "name": "Rito de Ferro",
-    "type": "Feitiço",
-    "attack": 0,
-    "defense": 0
-  },
-  {
-    "name": "Sentinela de Âmbar",
-    "type": "Criatura",
-    "attack": 6,
-    "defense": 6
-  },
-  {
-    "name": "Eco do Vazio",
-    "type": "Feitiço",
-    "attack": 0,
-    "defense": 0
-  },
-  {
-    "name": "Carta Persistente",
-    "type": "Criatura",
-    "attack": 5,
-    "defense": 0
-  }
+  { "id": 1, "name": "Dragão de Cobalto", "type": "Criatura", "attack": 7, "defense": 5 },
+  { "id": 2, "name": "Guardiã das Marés", "type": "Criatura", "attack": 4, "defense": 8 },
+  { "id": 3, "name": "Rito de Ferro", "type": "Feitiço", "attack": 0, "defense": 0 },
+  { "id": 4, "name": "Sentinela de Âmbar", "type": "Criatura", "attack": 6, "defense": 6 },
+  { "id": 5, "name": "Eco do Vazio", "type": "Feitiço", "attack": 0, "defense": 0 }
 ]

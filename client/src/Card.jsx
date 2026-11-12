@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-function Card({ name, type, attack }) {
+function Card({ id, name, type, attack, onDelete }) {
   const [likes, setLikes] = useState(0);
 
   return (
@@ -8,6 +8,7 @@ function Card({ name, type, attack }) {
       <b>{name}</b> — {type}, ataque {attack}
       {attack >= 6 && <span className="strong">forte</span>}{" "}
       <button onClick={() => setLikes(likes + 1)}>♥ {likes}</button>
+      <button onClick={() => onDelete(id)}>Apagar</button>
     </li>
   );
 }
