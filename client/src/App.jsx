@@ -25,8 +25,17 @@ function App() {
       attack: Number(form.attack),
       defense: 0,
     };
-    setCards([...cards, newCard]);
-    setForm(emptyForm);
+
+    fetch("http://localhost:3000/api/cartas", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newCard),
+    })
+      .then((res) => res.json())
+      .then((card) => {
+        setCards([...cards, card]);
+        setForm(emptyForm);
+      });
   }
 
   useEffect(() => {
