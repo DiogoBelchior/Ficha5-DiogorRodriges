@@ -12,6 +12,7 @@ function App() {
 
   const emptyForm = { name: "", type: "Criatura", attack: "" };
   const [form, setForm] = useState(emptyForm);
+  const [formError, setFormError] = useState(null);
 
   function handleFormChange(e) {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -31,8 +32,16 @@ function App() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(newCard),
     })
-      .then((res) => res.json())
+      .then((res) => {
+        if (!res.ok) {
+          setFormError(`HTTP ${res.status}`);
+          return;
+        }
+        return res.json();
+      })
       .then((card) => {
+        if (!card) return;
+        setFormError(null);
         setCards([...cards, card]);
         setForm(emptyForm);
       });
@@ -129,6 +138,8 @@ function App() {
             />
             <button type="submit">Adicionar</button>
           </form>
+
+          {formError && <p style={{ color: "red" }}>{formError}</p>}
 
           {visible.length === 0 ? (
             <p>Nenhuma carta corresponde.</p>

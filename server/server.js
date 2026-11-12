@@ -103,6 +103,11 @@ app.get("/agora", (req, res) => {
 
 app.post("/api/cartas", (req, res) => {
   const card = req.body;
+
+  if (!card.name || !card.type) {
+    return res.status(400).json({ error: "Nome e tipo são obrigatórios" });
+  }
+
   cards.push(card);
   fs.writeFileSync(CARTAS_FILE, JSON.stringify(cards, null, 2));
   res.status(201).json(card);
