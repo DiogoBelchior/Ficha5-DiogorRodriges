@@ -1,0 +1,32 @@
+body {
+  font-family: system-ui, sans-serif;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  line-height: 1.5;
+  color: #1d2327;
+  background: #f6f7f4;
+}
+
+button {
+  font: inherit;
+  margin: 0 6px 6px 0;
+  padding: 4px 12px;
+  cursor: pointer;
+}
+
+input {
+  font: inherit;
+  padding: 4px 8px;
+}
+
+.strong {
+  margin-left: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: #fff;
+  background: #a33b2b;
+  padding: 1px 6px;
+  border-radius: 3px;
+}
