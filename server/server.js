@@ -1,6 +1,9 @@
 const express = require("express");
+const cors = require("cors");
 
 const app = express();
+app.use(cors({ origin: "http://localhost:5173" }));
+app.use(express.json());
 const PORT = 3000;
 
 const cards = [
@@ -13,7 +16,6 @@ const cards = [
 
 
 app.get("/api/cartas", (req, res) => {
-  res.set("Access-Control-Allow-Origin", "http://localhost:5173");
   const { tipo } = req.query;
 
   if (tipo && tipo !== "Todas") {
@@ -26,7 +28,6 @@ app.get("/api/cartas", (req, res) => {
 
 
 app.get("/api/cartas/aleatoria", (req, res) => {
-  res.set("Access-Control-Allow-Origin", "http://localhost:5173");
   const randomIndex = Math.floor(Math.random() * cards.length);
   res.json(cards[randomIndex]);
 });
@@ -104,10 +105,14 @@ app.get("/agora", (req, res) => {
 
 
 
-app.use((req, res) => {
- 
-  res.set("Access-Control-Allow-Origin", "http://localhost:5173");
+app.post("/api/cartas", (req, res) => {
+  const card = req.body;
+  cards.push(card);
+  res.status(201).json(card);
+});
 
+
+app.use((req, res) => {
 
   if (req.url.startsWith("/api/")) {
     return res.status(404).send("HTTP 404 - Rota não encontrada");
